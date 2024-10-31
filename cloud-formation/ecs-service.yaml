@@ -1,0 +1,28 @@
+Description: Template to run ECS task
+
+Parameters:
+  Cluster:
+    Description: ECS cluster
+    Type: String
+  TaskDefinition:
+    Description: ECS task definition
+    Type: String
+
+Resources:
+  EcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: service
+      Cluster: !Ref Cluster
+      TaskDefinition: !Ref TaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            - subnet-0e2bc1784356fe46e
+            - subnet-028c4109ff2ed0aab
+            - subnet-02656f4ea7a1d5c4f
+          SecurityGroups:
+            - sg-06f242e8fa6cc58fd

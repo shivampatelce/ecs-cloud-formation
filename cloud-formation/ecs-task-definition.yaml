@@ -1,0 +1,30 @@
+Description: Template to create ECS Task Definition
+
+Resources:
+  EcsTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: ecs-cloud-formation-demo
+      NetworkMode: "awsvpc"
+      ExecutionRoleArn: arn:aws:iam::211079200782:role/ecsTaskExecutionRole
+      TaskRoleArn: arn:aws:iam::211079200782:role/ecsTaskExecutionRole
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: "512"
+      Memory: "1024"
+      ContainerDefinitions:
+        - Name: ecs-cloud-formation
+          Image: spshivampatel/ecs-cloud-formation:latest
+          Memory: 1024
+          Essential: true
+          PortMappings:
+            - ContainerPort: 80
+              Protocol: "tcp"
+              AppProtocol: "http"
+
+Outputs:
+  TaskDefinition:
+    Description: Ecs Task Definition
+    Value: !Ref EcsTaskDefinition
+    Export:
+      Name: TaskDefinition

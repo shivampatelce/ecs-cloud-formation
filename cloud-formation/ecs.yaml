@@ -1,0 +1,20 @@
+Description: ECS base template
+
+Resources:
+  EcsCluster:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://ecs-cloud-formation-demo.s3.ca-central-1.amazonaws.com/ecs-cluster.yaml
+
+  EcsTaskDefinition:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://ecs-cloud-formation-demo.s3.ca-central-1.amazonaws.com/ecs-task-definition.yaml
+
+  EcsService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://ecs-cloud-formation-demo.s3.ca-central-1.amazonaws.com/ecs-service.yaml
+      Parameters:
+        Cluster: !GetAtt EcsCluster.Outputs.EcsCluster
+        TaskDefinition: !GetAtt EcsTaskDefinition.Outputs.TaskDefinition

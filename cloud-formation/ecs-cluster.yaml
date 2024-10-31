@@ -1,0 +1,14 @@
+Description: Template to create ECS cluster
+
+Resources:
+  EcsCloudFormationCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: EcsCloudFormationDemo
+
+Outputs:
+  EcsCluster:
+    Description: Ecs cluster
+    Value: !Ref EcsCloudFormationCluster
+    Export:
+      Name: EcsCluster
